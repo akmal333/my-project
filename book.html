@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book Parcel - ShipMate Courier Services</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+
+  <style>
+    /* Global Styles */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #F8F9FA;
+    }
+    h1, h2, h3 { font-family: 'Montserrat', sans-serif; }
+
+    a { text-decoration: none; color: inherit; }
+    input, select, textarea {
+      width: 100%; padding: 12px; margin-bottom: 15px;
+      border: 1px solid #ddd; border-radius: 5px; font-size: 16px;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: #28A745; outline: none;
+    }
+
+    .btn {
+      display: inline-block; padding: 12px 24px;
+      border-radius: 25px; font-weight: 600;
+      transition: all 0.3s ease; cursor: pointer; border: none;
+    }
+    .btn-primary {
+      background-color: #28A745; color: white;
+      box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
+    }
+    .btn-primary:hover { transform: translateY(-2px); }
+    .btn-reset { background-color: #6C757D; color: white; }
+    .btn-reset:hover { background-color: #5A6268; }
+
+    header {
+      position: sticky; top: 0;
+      background: linear-gradient(90deg, #28A745 0%, #E8F5E8 100%);
+      padding: 15px 20px; display: flex; justify-content: space-between;
+      align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .logo { font-size: 24px; font-weight: 700; color: white; }
+    nav { display: flex; gap: 20px; }
+    nav a { font-weight: 500; }
+    nav a.active, nav a:hover { color: #6F42C1; }
+
+    .page-header {
+      background: linear-gradient(135deg, rgba(40,167,69,0.8), rgba(248,249,250,0.9)),
+        url('https://via.placeholder.com/1200x400?text=Courier+Truck') center/cover;
+      color: white; text-align: center;
+      padding: 80px 20px; min-height: 40vh;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .page-header h1 { font-size: 48px; margin-bottom: 10px; }
+    .page-header p { font-size: 18px; }
+
+    .form-container {
+      max-width: 1200px; margin: auto; padding: 60px 20px;
+      display: flex; gap: 40px; flex-wrap: wrap;
+    }
+    .form-section {
+      flex: 2; background: white; padding: 30px; border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .form-section h2 {
+      color: #28A745; border-bottom: 2px solid #E8F5E8;
+      padding-bottom: 10px; margin-bottom: 20px;
+    }
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; font-weight: 600; margin-bottom: 5px; }
+    .radio-group { display: flex; gap: 20px; }
+
+    .estimate {
+      background: #E8F5E8; padding: 15px; border-radius: 5px;
+      margin-top: 10px; text-align: center; display: none;
+    }
+    .estimate h3 { color: #28A745; margin-bottom: 5px; }
+
+    .summary {
+      background: #F8F9FA; padding: 20px; border-radius: 10px;
+      margin-top: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      display: none;
+    }
+
+    .buttons { display: flex; justify-content: center; gap: 15px; margin-top: 25px; }
+
+    .sidebar { flex: 1; min-width: 250px; }
+    .sidebar-card {
+      background: white; padding: 20px; border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1); margin-bottom: 20px;
+    }
+    .sidebar-card h3 { color: #28A745; margin-bottom: 10px; }
+    .sidebar-card li { margin-bottom: 8px; }
+
+    footer {
+      background-color: #28A745; color: white;
+      padding: 30px 20px; text-align: center;
+    }
+
+    @media(max-width:768px) {
+      .form-container { flex-direction: column; }
+      .page-header h1 { font-size: 32px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="logo">🚚 ShipMate</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About Us</a>
+      <a href="book.html" class="active">Book Parcel</a>
+      <a href="track.html">Track Parcel</a>
+      <a href="login.html">Login</a>
+    </nav>
+  </header>
+
+  <!-- Header Banner -->
+  <section class="page-header">
+    <h1>Book Your Parcel</h1>
+    <p>Enter your parcel details below to schedule a pickup and delivery.</p>
+  </section>
+
+  <!-- Main Form -->
+  <section class="form-container">
+    <div class="form-section">
+      <form id="booking-form">
+
+        <!-- Sender -->
+        <h2>Sender Details</h2>
+        <div class="form-group"><label>Full Name</label><input id="sender-name" required></div>
+        <div class="form-group"><label>Mobile</label><input id="sender-mobile" required></div>
+        <div class="form-group"><label>Pickup Address</label><textarea id="sender-address" required></textarea></div>
+        <div class="form-group"><label>City</label><input id="sender-city" required></div>
+        <div class="form-group"><label>Pincode</label><input id="sender-pincode" required></div>
+
+        <!-- Receiver -->
+        <h2>Receiver Details</h2>
+        <div class="form-group"><label>Full Name</label><input id="receiver-name" required></div>
+        <div class="form-group"><label>Mobile</label><input id="receiver-mobile" required></div>
+        <div class="form-group"><label>Delivery Address</label><textarea id="receiver-address" required></textarea></div>
+        <div class="form-group"><label>City</label><input id="receiver-city" required></div>
+        <div class="form-group"><label>Pincode</label><input id="receiver-pincode" required></div>
+
+        <!-- Parcel -->
+        <h2>Parcel Details</h2>
+        <div class="form-group">
+          <label>Package Type</label>
+          <select id="package-type" required>
+            <option value="">Select</option>
+            <option value="document">Document</option>
+            <option value="box">Box</option>
+            <option value="fragile">Fragile</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Weight (kg)</label>
+          <input type="number" id="weight" min="0.1" step="0.1" required>
+        </div>
+        <div class="form-group">
+          <label>Delivery Type</label>
+          <div class="radio-group">
+            <label><input type="radio" name="delivery-type" value="standard" checked> Standard</label>
+            <label><input type="radio" name="delivery-type" value="express"> Express</label>
+          </div>
+        </div>
+        <div class="form-group"><label>Notes</label><textarea id="notes"></textarea></div>
+
+        <!-- Estimate -->
+        <div id="estimate" class="estimate">
+          <h3>Estimated Details</h3>
+          <p id="est-time">Estimated Delivery: --</p>
+          <p id="est-cost">Approx. Cost: ₹--</p>
+        </div>
+
+        <!-- Summary -->
+        <div id="summary" class="summary">
+          <h3>Booking Summary</h3>
+          <p id="summary-sender"></p>
+          <p id="summary-receiver"></p>
+          <p id="summary-type"></p>
+          <p id="summary-est"></p>
+        </div>
+
+        <div class="buttons">
+          <button type="submit" class="btn btn-primary">Confirm Booking</button>
+          <button type="button" class="btn btn-reset" onclick="resetForm()">Reset Form</button>
+        </div>
+        <div id="message"></div>
+      </form>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="sidebar-card">
+        <h3>📋 Booking Tips</h3>
+        <ul>
+          <li>Double-check recipient address before confirming.</li>
+          <li>Use Express Delivery for urgent parcels.</li>
+          <li>Ensure weight is correct for accurate pricing.</li>
+        </ul>
+      </div>
+      <div class="sidebar-card">
+        <h3>🚚 Progress</h3>
+        <p>Step 1: Fill Details → Step 2: Confirm → Step 3: Done ✅</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 ShipMate Courier Services. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Update Estimate
+    function updateEstimate() {
+      const weight = parseFloat(document.getElementById('weight').value);
+      const deliveryType = document.querySelector('input[name="delivery-type"]:checked').value;
+      const estDiv = document.getElementById('estimate');
+      if (weight > 0) {
+        const estTime = deliveryType === 'express' ? '1 Day' : '2–3 Days';
+        const estCost = deliveryType === 'express' ? Math.round(weight * 200) : Math.round(weight * 100);
+        document.getElementById('est-time').textContent = `Estimated Delivery: ${estTime}`;
+        document.getElementById('est-cost').textContent = `Approx. Cost: ₹${estCost}`;
+        estDiv.style.display = 'block';
+      } else estDiv.style.display = 'none';
+    }
+    document.getElementById('weight').addEventListener('input', updateEstimate);
+    document.querySelectorAll('input[name="delivery-type"]').forEach(r => r.addEventListener('change', updateEstimate));
+
+    // Form Submission
+    document.getElementById('booking-form').addEventListener('submit', function(e){
+      e.preventDefault();
+
+      const sender = {
+        name: document.getElementById('sender-name').value,
+        city: document.getElementById('sender-city').value
+      };
+      const receiver = {
+        name: document.getElementById('receiver-name').value,
+        city: document.getElementById('receiver-city').value
+      };
+      const type = document.getElementById('package-type').value;
+      const estTime = document.getElementById('est-time').textContent;
+      const estCost = document.getElementById('est-cost').textContent;
+
+      // Display Summary
+      document.getElementById('summary-sender').textContent = `Sender: ${sender.name} (${sender.city})`;
+      document.getElementById('summary-receiver').textContent = `Receiver: ${receiver.name} (${receiver.city})`;
+      document.getElementById('summary-type').textContent = `Package Type: ${type}`;
+      document.getElementById('summary-est').textContent = `${estTime} | ${estCost}`;
+      document.getElementById('summary').style.display = 'block';
+
+      // Save Booking Info
+      const booking = {
+        id: 'BK' + Math.floor(Math.random() * 1000000),
+        sender, receiver, type, estTime, estCost
+      };
+      localStorage.setItem('latestBooking', JSON.stringify(booking));
+
+      // Redirect after a short delay
+      document.getElementById('message').innerHTML = '<div class="success">Booking Confirmed! Redirecting...</div>';
+      setTimeout(() => window.location.href = 'confirmation.html', 1500);
+    });
+
+    // Reset Form
+    function resetForm() {
+      document.getElementById('booking-form').reset();
+      document.getElementById('estimate').style.display = 'none';
+      document.getElementById('summary').style.display = 'none';
+      document.getElementById('message').innerHTML = '';
+    }
+  </script>
+</body>
+</html>

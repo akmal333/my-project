@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login / Signup - ShipMate Courier Services</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+
+  <style>
+    /* -------------------- GLOBAL STYLES -------------------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #F8F9FA;
+      overflow-x: hidden;
+    }
+    h1, h2, h3 {
+      font-family: 'Montserrat', sans-serif;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      border-radius: 25px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary {
+      background-color: #28A745;
+      color: white;
+      box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(40, 167, 69, 0.4);
+    }
+    .btn-secondary {
+      background-color: #6F42C1;
+      color: white;
+      box-shadow: 0 4px 8px rgba(111, 66, 193, 0.3);
+    }
+    .btn-secondary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(111, 66, 193, 0.4);
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    input:focus {
+      border-color: #28A745;
+      outline: none;
+    }
+    .error { color: red; font-size: 14px; margin-bottom: 10px; }
+    .success { color: green; font-size: 14px; margin-bottom: 10px; }
+
+    /* -------------------- HEADER -------------------- */
+    header {
+      position: sticky;
+      top: 0;
+      background: linear-gradient(90deg, #28A745 0%, #E8F5E8 100%);
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+    }
+    .logo {
+      font-size: 24px;
+      font-weight: 700;
+      color: white;
+    }
+    nav {
+      display: flex;
+      gap: 20px;
+    }
+    nav a {
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    nav a.active {
+      color: #6F42C1;
+      font-weight: 700;
+    }
+    nav a:hover {
+      color: #6F42C1;
+    }
+
+    /* -------------------- PAGE HEADER -------------------- */
+    .page-header {
+      background: linear-gradient(135deg, rgba(40, 167, 69, 0.8) 0%, rgba(248, 249, 250, 0.9) 100%), 
+                  url('https://via.placeholder.com/1200x400?text=Delivery+Workers+Login') no-repeat center/cover;
+      padding: 40px 20px; /* Reduced padding */
+      text-align: center;
+      color: white;
+      min-height: 20vh; /* Reduced min-height */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .page-header h1 {
+      font-size: 36px; /* Slightly reduced font size */
+      margin-bottom: 15px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+    .page-header p {
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+
+    /* -------------------- MAIN CONTAINER -------------------- */
+    .main-container {
+      display: flex;
+      justify-content: center; /* Ensures centering */
+      align-items: center;
+      padding: 60px 20px;
+      gap: 40px;
+      flex-wrap: wrap;
+      min-height: 60vh; /* Added to help centering */
+    }
+    .illustration {
+      flex: 1;
+      max-width: 400px;
+      text-align: center;
+    }
+    .illustration img {
+      max-width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .form-container {
+      flex: 1;
+      max-width: 400px;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      margin: 0 auto; /* Additional centering */
+    }
+    .tabs {
+      display: flex;
+      margin-bottom: 20px;
+    }
+    .tab {
+      flex: 1;
+      padding: 10px;
+      text-align: center;
+      cursor: pointer;
+      background: #F8F9FA;
+      border-radius: 5px 5px 0 0;
+      transition: background 0.3s;
+    }
+    .tab.active {
+      background: #28A745;
+      color: white;
+    }
+    .form { display: none; }
+    .form.active { display: block; }
+    .form h3 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #28A745;
+    }
+    .checkbox {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    .checkbox input {
+      margin-right: 10px;
+    }
+    .link {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 14px;
+    }
+    .link a {
+      color: #6F42C1;
+      text-decoration: underline;
+    }
+
+    /* -------------------- FORGOT PASSWORD POPUP -------------------- */
+    .popup {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+    }
+    .popup-content {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+      max-width: 300px;
+    }
+    .popup-content h3 {
+      margin-bottom: 20px;
+      color: #28A745;
+    }
+
+    /* -------------------- INFO SECTION -------------------- */
+    .info-section {
+      padding: 40px 20px;
+      background-color: white;
+      text-align: center;
+    }
+    .info-section p {
+      font-size: 18px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* -------------------- FOOTER -------------------- */
+    footer {
+      background-color: #28A745;
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+    }
+    .social-links {
+      margin-top: 20px;
+    }
+    .social-links a {
+      margin: 0 10px;
+      font-size: 24px;
+      transition: color 0.3s;
+    }
+    .social-links a:hover {
+      color: #6F42C1;
+    }
+
+    /* -------------------- RESPONSIVE -------------------- */
+    @media (max-width: 768px) {
+      .main-container {
+        flex-direction: column;
+        text-align: center;
+        padding: 40px 20px;
+      }
+      .page-header h1 {
+        font-size: 28px;
+      }
+      nav {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo">🚚 ShipMate</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About Us</a>
+      <a href="book.html">Book Parcel</a>
+      <a href="track.html">Track Parcel</a>
+      <a href="login.html" class="active">Login</a>
+    </nav>
+  </header>
+
+  <!-- PAGE HEADER -->
+  <section class="page-header">
+    <h1>Welcome to ShipMate</h1> <!-- Changed text -->
+    <p>Login to manage bookings, track shipments, and view your delivery history.</p>
+  </section>
+
+  <!-- MAIN CONTENT -->
+  <section class="main-container">
+    <div class="illustration">
+      <img src="delivery-pic.jpg" alt="Courier Illustration">
+    </div>
+
+    <div class="form-container">
+      <div class="tabs">
+        <div class="tab active" onclick="switchTab('login')">Login</div>
+        <div class="tab" onclick="switchTab('signup')">Signup</div>
+      </div>
+
+      <!-- LOGIN FORM -->
+      <form id="login-form" class="form active">
+        <h3>Login</h3>
+        <input type="email" id="login-email" placeholder="Email or Username" required>
+        <input type="password" id="login-password" placeholder="Password" required>
+        <div class="checkbox">
+          <input type="checkbox" id="remember-me">
+          <label for="remember-me">Remember Me</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Login Now</button>
+        <div class="link">
+          <a href="#" onclick="showForgotPassword()">Forgot Password?</a>
+        </div>
+        <div class="link">
+          Don’t have an account? <a href="#" onclick="switchTab('signup')">Sign up here</a>
+        </div>
+        <div id="login-message"></div>
+      </form>
+
+      <!-- SIGNUP FORM -->
+      <form id="signup-form" class="form">
+        <h3>Signup</h3>
+        <input type="text" id="signup-name" placeholder="Full Name" required>
+        <input type="email" id="signup-email" placeholder="Email Address" required>
+        <input type="password" id="signup-password" placeholder="Password" required>
+        <input type="password" id="signup-confirm-password" placeholder="Confirm Password" required>
+        <input type="tel" id="signup-phone" placeholder="Phone Number (Optional)">
+        <button type="submit" class="btn btn-primary">Create Account</button>
+        <div class="link">
+          Already have an account? <a href="#" onclick="switchTab('login')">Login here</a>
+        </div>
+        <div id="signup-message"></div>
+      </form>
+    </div>
+  </section>
+
+  <!-- INFO SECTION -->
+  <section class="info-section">
+    <p>With ShipMate, you can book deliveries, track parcels in real-time, and manage your shipment history — all from one app.</p>
+  </section>
+
+  <!-- FORGOT PASSWORD POPUP -->
+  <div id="forgot-popup" class="popup">
+    <div class="popup-content">
+      <h3>Forgot Password?</h3>
+      <input type="email" id="forgot-email" placeholder="Enter your email" required>
+      <button onclick="resetPassword()" class="btn btn-secondary">Send Reset Link</button>
+      <button onclick="closePopup()" class="btn" style="background: #ddd; margin-top: 10px;">Cancel</button>
+      <div id="forgot-message"></div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 ShipMate Courier Services. All rights reserved.</p>
+    <div class="social-links">
+      <a href="#">📘</a>
+      <a href="#">🐦</a>
+      <a href="#">📷</a>
+    </div>
+  </footer>
+
+  <!-- -------------------- SCRIPT -------------------- -->
+  <script>
+    // Switch Tabs
+    function switchTab(tab) {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.form').forEach(f => f.classList.remove('active'));
+      document.querySelector(`[onclick="switchTab('${tab}')"]`).classList.add('active');
+      document.getElementById(`${tab}-form`).classList.add('active');
+    }
+
+    // Forgot Password
+    function showForgotPassword() {
+      document.getElementById('forgot-popup').style.display = 'flex';
+    }
+    function closePopup() {
+      document.getElementById('forgot-popup').style.display = 'none';
+    }
+    function resetPassword() {
+      const email = document.getElementById('forgot-email').value;
+      if (email) {
+        document.getElementById('forgot-message').innerHTML = '<div class="success">Password reset link sent to your email.</div>';
+        setTimeout(() => closePopup(), 2000);
+      } else {
+        document.getElementById('forgot-message').innerHTML = '<div class="error">Please enter your email.</div>';
+      }
+    }
+
+    // Login Submission
+    document.getElementById('login-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const email = document.getElementById('login-email').value;
+      const password = document.getElementById('login-password').value;
+      const msg = document.getElementById('login-message');
+
+      const users = JSON.parse(localStorage.getItem('users')) || [];
+      const user = users.find(u => u.email === email && u.password === password);
+
+      if (user) {
+        msg.innerHTML = '<div class="success">Login successful! Redirecting...</div>';
+        localStorage.setItem('loggedInUser', JSON.stringify(user));
+        setTimeout(() => window.location.href = 'book.html', 1000);
+      } else {
+        msg.innerHTML = '<div class="error">Invalid email or password.</div>';
+      }
+    });
+
+    // Signup Submission
+    document.getElementById('signup-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('signup-name').value;
+      const email = document.getElementById('signup-email').value;
+      const password = document.getElementById('signup-password').value;
+      const confirm = document.getElementById('signup-confirm-password').value;
+      const phone = document.getElementById('signup-phone').value;
+      const msg = document.getElementById('signup-message');
+
+      if (!name || !email || !password || !confirm) {
+        msg.innerHTML = '<div class="error">Please fill all required fields.</div>';
+        return;
+      }
+      if (password !== confirm) {
+        msg.innerHTML = '<div class="error">Passwords do not match.</div>';
+        return;
+      }
+
+      const users = JSON.parse(localStorage.getItem('users')) || [];
+      if (users.find(u => u.email === email)) {
+        msg.innerHTML = '<div class="error">Email already exists.</div>';
+        return;
+      }
+
+      users.push({ name, email, password, phone });
+      localStorage.setItem('users', JSON.stringify(users));
+      msg.innerHTML = '<div class="success">Account created successfully! You can now log in.</div>';
+      setTimeout(() => switchTab('login'), 2000);
+    });
+  </script>
+
+</body>
+</html>

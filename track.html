@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Parcel - ShipMate Courier Services</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #F8F9FA;
+            overflow-x: hidden;
+        }
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+        .btn-primary {
+            background-color: #28A745;
+            color: white;
+            box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(40, 167, 69, 0.4);
+        }
+        .btn-secondary {
+            background-color: #6F42C1;
+            color: white;
+            box-shadow: 0 4px 8px rgba(111, 66, 193, 0.3);
+        }
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(111, 66, 193, 0.4);
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        input:focus {
+            border-color: #28A745;
+            outline: none;
+        }
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        .success {
+            color: green;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 1s ease-in-out forwards;
+        }
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        /* Header / Navigation */
+        header {
+            position: sticky;
+            top: 0;
+            background: linear-gradient(90deg, #28A745 0%, #E8F5E8 100%);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: white;
+        }
+        nav {
+            display: flex;
+            gap: 20px;
+        }
+        nav a {
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        nav a.active {
+            color: #6F42C1;
+            font-weight: 700;
+        }
+        nav a:hover {
+            color: #6F42C1;
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, rgba(40, 167, 69, 0.8) 0%, rgba(248, 249, 250, 0.9) 100%), url('https://via.placeholder.com/1200x400?text=Delivery+Map') no-repeat center/cover;
+            padding: 80px 20px;
+            text-align: center;
+            color: white;
+            min-height: 40vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .page-header h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        .page-header p {
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+
+        /* Tracking Input Section */
+        .tracking-input {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 60px 20px;
+            text-align: center;
+        }
+        .input-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .input-card h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #28A745;
+        }
+        .input-card p {
+            font-size: 16px;
+            margin-bottom: 20px;
+            color: #6C757D;
+        }
+
+        /* Tracking Results Section */
+        .tracking-results {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px 60px;
+            display: none;
+        }
+        .results-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+        }
+        .results-card h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #28A745;
+        }
+        .summary-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .summary-table th, .summary-table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        .summary-table th {
+            font-weight: 600;
+            color: #28A745;
+        }
+
+        /* Progress Timeline */
+        .progress-timeline {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+        }
+        .progress-timeline h3 {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #28A745;
+        }
+        .progress-steps {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .step {
+            text-align: center;
+            flex: 1;
+        }
+        .step-icon {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+        .step.active .step-icon {
+            color: #28A745;
+        }
+        .step.active .step-label {
+            color: #28A745;
+            font-weight: 600;
+        }
+        .step-label {
+            font-size: 14px;
+            color: #6C757D;
+        }
+        .progress-line {
+            flex: 1;
+            height: 2px;
+            background: #ddd;
+            margin: 0 10px;
+        }
+        .progress-line.active {
+            background: #28A745;
+        }
+
+        /* Delivery Info */
+        .delivery-info {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        .delivery-info h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #28A745;
+        }
+        .delivery-info p {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        /* Actions */
+        .actions {
+            text-align: center;
+        }
+        .actions .btn {
+            margin: 10px;
+        }
+
+        /* Error Message */
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #28A745;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .social-links {
+            margin-top: 20px;
+        }
+        .social-links a {
+            margin: 0 10px;
+            font-size: 24px;
+            transition: color 0.3s;
+        }
+        .social-links a:hover {
+            color: #6F42C1;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .progress-steps {
+                flex-direction: column;
+                gap: 20px;
+            }
+            .progress-line {
+                display: none;
+            }
+            .page-header h1 {
+                font-size: 32px;
+            }
+            nav {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">🚚 ShipMate</div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="about.html">About Us</a>
+            <a href="book.html">Book Parcel</a>
+            <a href="track.html" class="active">Track Parcel</a>
+            <a href="login.html">Login</a>
+        </nav>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header fade-in">
+        <h1>Track Your Shipment</h1>
+        <p>Enter your Tracking ID to check the current delivery status of your parcel.</p>
+    </section>
+
+    <!-- Tracking Input -->
+    <section class="tracking-input fade-in">
+        <div class="input-card">
+            <h2>Enter Tracking ID</h2>
+            <p>Tip: You can find your Tracking ID on your booking confirmation receipt.</p>
+            <input type="text" id="tracking-id" placeholder="e.g., #SM4827391" required>
+            <button class="btn btn-primary" onclick="trackParcel()">Track Parcel</button>
+            <div id="input-message"></div>
+        </div>
+    </section>
+
+    <!-- Tracking Results -->
+    <section class="tracking-results" id="results-section">
+        <div class="error-message" id="error-message">
+            ❌ Tracking ID not found. Please check your ID and try again.
+        </div>
+
+        <div class="results-card">
+            <h3>Shipment Summary</h3>
+            <table class="summary-table">
+                <tr><th>Tracking ID</th><td id="result-tracking-id">#SM4827391</td></tr>
+                <tr><th>Sender</th><td id="result-sender">Akmal Ali (Kochi)</td></tr>
+                <tr><th>Receiver</th><td id="result-receiver">Rahul Das (Bengaluru)</td></tr>
+                <tr><th>Delivery Type</th><td id="result-delivery-type">Express</td></tr>
+                <tr><th>Estimated Delivery</th><td id="result-est-delivery">1 Day</td></tr>
+                <tr><th>Current Status</th><td id="result-status">🟢 In Transit</td></tr>
+            </table>
+        </div>
+
+        <div class="progress-timeline">
+            <h3>Delivery Progress</h3>
+            <div class="progress-steps">
+                <div class="step active" id="step-booked">
+                    <div class="step-icon">🟢</div>
+                    <div class="step-label">Booked</div>
+                </div>
+                <div class="progress-line active" id="line-1"></div>
+                <div class="step active" id="step-transit">
+                    <div class="step-icon">🚚</div>
+                    <div class="step-label">In Transit</div>
+                </div>
+                <div class="progress-line" id="line-2"></div>
+                <div class="step" id="step-delivered">
+                    <div class="step-icon">📦</div>
+                    <div class="step-label">Delivered</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="delivery-info">
+            <h3>Estimated Delivery Info</h3>
+            <p id="est-info">Estimated Delivery: Tomorrow (1 Day left)</p>
+            <p id="expected-date">Expected Date: Oct 29, 2025</p>
+            <p>Your parcel is currently in transit and will arrive soon.</p>
+        </div>
+
+        <div class="actions">
+            <a href="index.html" class="btn btn-secondary">Back to Home</a>
+            <a href="book.html" class="btn btn-primary">Book Another Parcel</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 ShipMate Courier Services. All rights reserved.</p>
+        <div class="social-links">
+            <a href="#">📘</a>
+            <a href="#">🐦</a>
+            <a href="#">📷</a>
+        </div>
+    </footer>
+
+    <script>
+        function trackParcel() {
+            const trackingID = document.getElementById('tracking-id').value.trim();
+            const resultsSection = document.getElementById('results-section');
+            const errorMessage = document.getElementById('error-message');
+            const inputMessage = document.getElementById('input-message');
+
+            const booking = JSON.parse(localStorage.getItem('latestBooking')) || {
+                trackingID: '#SM4827391',
+                sender: 'Akmal Ali (Kochi)',
+                receiver: 'Rahul Das (Bengaluru)',
+                deliveryType: 'Express',
+                estDelivery: '1 Day',
+                status: '🟢 In Transit'
+            };
+
+            if (trackingID === booking.trackingID || trackingID === 'SM4827391') {
+                document.getElementById('result-tracking-id').textContent = booking.trackingID;
+                document.getElementById('result-sender').textContent = booking.sender;
+                document.getElementById('result-receiver').textContent = booking.receiver;
+                document.getElementById('result-delivery-type').textContent = booking.deliveryType;
+                document.getElementById('result-est-delivery').textContent = booking.estDelivery;
+                document.getElementById('result-status').textContent = booking.status;
+
+                const statuses = ['booked', 'transit', 'delivered'];
+                const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
+                updateProgress(randomStatus);
+
+                errorMessage.style.display = 'none';
+                resultsSection.style.display = 'block';
+                inputMessage.innerHTML = '<div class="success">Tracking details loaded successfully!</div>';
+            } else {
+                errorMessage.style.display = 'block';
+                resultsSection.style.display = 'none';
+                inputMessage.innerHTML = '<div class="error">Invalid Tracking ID. Please try again.</div>';
+            }
+        }
+
+        function updateProgress(status) {
+            const steps = ['step-booked', 'step-transit', 'step-delivered'];
+            const lines = ['line-1', 'line-2'];
+            steps.forEach(step => document.getElementById(step).classList.remove('active'));
+            lines.forEach(line => document.getElementById(line).classList.remove('active'));
+
+            if (status === 'booked') {
+                document.getElementById('step-booked').classList.add('active');
+            } else if (status === 'transit') {
+                document.getElementById('step-booked').classList.add('active');
+                document.getElementById('line-1').classList.add('active');
+                document.getElementById('step-transit').classList.add('active');
+            } else if (status === 'delivered') {
+                steps.forEach(step => document.getElementById(step).classList.add('active'));
+                lines.forEach(line => document.getElementById(line).classList.add('active'));
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - ShipMate Courier Services</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #F8F9FA;
+            overflow-x: hidden;
+        }
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .btn-primary {
+            background-color: #28A745;
+            color: white;
+            box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(40, 167, 69, 0.4);
+        }
+        .btn-secondary {
+            background-color: #6F42C1;
+            color: white;
+            box-shadow: 0 4px 8px rgba(111, 66, 193, 0.3);
+        }
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(111, 66, 193, 0.4);
+        }
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 1s ease-in-out forwards;
+        }
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        /* Header / Navigation */
+        header {
+            position: sticky;
+            top: 0;
+            background: linear-gradient(90deg, #28A745 0%, #E8F5E8 100%);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: white;
+        }
+        nav {
+            display: flex;
+            gap: 20px;
+        }
+        nav a {
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        nav a.active {
+            color: #6F42C1;
+            font-weight: 700;
+        }
+        nav a:hover {
+            color: #6F42C1;
+        }
+        .btn-login {
+            background-color: #6F42C1;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+        }
+
+        /* Main Header Section */
+        .main-header {
+            background: linear-gradient(135deg, rgba(40, 167, 69, 0.8) 0%, rgba(248, 249, 250, 0.9) 100%), url('https://via.placeholder.com/1200x400?text=Delivery+Vans+and+Parcels') no-repeat center/cover;
+            padding: 100px 20px;
+            text-align: center;
+            color: white;
+            min-height: 50vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .main-header h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        .main-header p {
+            font-size: 24px;
+            margin-bottom: 30px;
+        }
+
+        /* Who We Are Section */
+        .who-we-are {
+            padding: 60px 20px;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+        .who-we-are img {
+            flex: 1;
+            max-width: 50%;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .who-we-are-text {
+            flex: 1;
+        }
+        .who-we-are h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #28A745;
+        }
+        .who-we-are p {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        /* Mission and Vision Section */
+        .mission-vision {
+            padding: 60px 20px;
+            background-color: #F8F9FA;
+            text-align: center;
+        }
+        .mission-vision h2 {
+            font-size: 36px;
+            margin-bottom: 40px;
+            color: #28A745;
+        }
+        .mv-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+        .mv-block {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 300px;
+            transition: transform 0.3s;
+        }
+        .mv-block:hover {
+            transform: translateY(-5px);
+        }
+        .mv-block h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #28A745;
+        }
+        .mv-block .icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        /* What Makes Us Different Section */
+        .differences {
+            padding: 60px 20px;
+            background-color: white;
+        }
+        .differences h2 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 40px;
+            color: #28A745;
+        }
+        .diff-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        .diff-item {
+            background: #F8F9FA;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        .diff-item:hover {
+            transform: translateY(-5px);
+        }
+        .diff-item .icon {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+        .diff-item h4 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #28A745;
+        }
+
+        /* Developer / Team Section */
+        .developer {
+            padding: 60px 20px;
+            background-color: #F8F9FA;
+            text-align: center;
+        }
+        .developer h2 {
+            font-size: 36px;
+            margin-bottom: 40px;
+            color: #28A745;
+        }
+        .dev-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        .dev-card .icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+        .dev-card h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #28A745;
+        }
+        .dev-card p {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        /* Contact / Support Section */
+        .contact {
+            padding: 60px 20px;
+            background-color: white;
+            text-align: center;
+        }
+        .contact h2 {
+            font-size: 36px;
+            margin-bottom: 40px;
+            color: #28A745;
+        }
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+        .contact-item {
+            text-align: center;
+        }
+        .contact-item .icon {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+        .contact-item p {
+            font-size: 18px;
+        }
+        .contact-buttons {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #28A745;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .social-links {
+            margin-top: 20px;
+        }
+        .social-links a {
+            margin: 0 10px;
+            font-size: 24px;
+            transition: color 0.3s;
+        }
+        .social-links a:hover {
+            color: #6F42C1;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .who-we-are {
+                flex-direction: column;
+                text-align: center;
+            }
+            .who-we-are img {
+                max-width: 100%;
+            }
+            .mv-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .contact-info {
+                flex-direction: column;
+                gap: 20px;
+            }
+            nav {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .main-header h1 {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header / Navigation -->
+    <header>
+        <div class="logo">🚚 ShipMate</div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="about.html" class="active">About Us</a>
+            <a href="book.html">Book Parcel</a>
+            <a href="track.html">Track Parcel</a>
+            <a href="login.html" class="btn-login">Login</a>
+        </nav>
+    </header>
+
+    <!-- Main Header Section -->
+    <section class="main-header fade-in">
+        <h1>About ShipMate Courier Services</h1>
+        <p>Delivering trust, one parcel at a time.</p>
+        <a href="book.html" class="btn btn-primary">Book a Parcel Now</a>
+    </section>
+
+    <!-- Who We Are Section -->
+    <section class="who-we-are fade-in">
+        <img src="delivery-pic.jpg" alt="Courier Illustration">
+        <div class="who-we-are-text">
+            <h2>Who We Are</h2>
+            <p>ShipMate is a Progressive Web Application (PWA) built to make courier and parcel delivery services easier and smarter for everyone.</p>
+            <p>It allows users to book, track, and manage shipments in real-time — all through a simple, responsive interface.</p>
+            <p>Our goal is to make logistics accessible to individuals and small businesses without the need for complicated systems.</p>
+        </div>
+    </section>
+
+    <!-- Mission and Vision Section -->
+    <section class="mission-vision fade-in">
+        <h2>Our Mission & Vision</h2>
+        <div class="mv-container">
+            <div class="mv-block">
+                <div class="icon">🚀</div>
+                <h3>Mission</h3>
+                <p>To simplify and digitalize courier services by providing fast, transparent, and reliable parcel management.</p>
+            </div>
+            <div class="mv-block">
+                <div class="icon">🧭</div>
+                <h3>Vision</h3>
+                <p>To become a trusted, go-to platform for every local and national delivery — connecting people and businesses efficiently.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- What Makes Us Different Section -->
+    <section class="differences fade-in">
+        <h2>What Makes Us Different</h2>
+        <div class="diff-list">
+            <div class="diff-item">
+                <div class="icon">✅</div>
+                <h4>Real-Time Parcel Tracking</h4>
+                <p>Monitor your shipments with live GPS updates.</p>
+            </div>
+            <div class="diff-item">
+                <div class="icon">✅</div>
+                <h4>Offline Access</h4>
+                <p>Access previous bookings even without internet.</p>
+            </div>
+            <div class="diff-item">
+                <div class="icon">✅</div>
+                <h4>Easy-to-Use Interface</h4>
+                <p>Works seamlessly on all devices.</p>
+            </div>
+            <div class="diff-item">
+                <div class="icon">✅</div>
+                <h4>PWA Installable</h4>
+                <p>Install like a mobile app for quick access.</p>
+            </div>
+            <div class="diff-item">
+                <div class="icon">✅</div>
+                <h4>Secure & Lightweight</h4>
+                <p>Reliable platform with top-notch security.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Developer / Team Section -->
+    <section class="developer fade-in">
+        <h2>Meet the Developer</h2>
+        <div class="dev-card">
+            <div class="icon">👨‍💻</div>
+            <h3>Akmal</h3>
+            <p>BCA Student</p>
+            <p>Yenepoya Institute of Arts, Science, Commerce and Management</p>
+            <p>Department of Computer Science</p>
+            <p>Mentored by: Ms. Bindya</p>
+        </div>
+    </section>
+
+    <!-- Contact / Support Section -->
+    <section class="contact fade-in">
+        <h2>Contact Us</h2>
+        <div class="contact-info">
+            <div class="contact-item">
+                <div class="icon">📞</div>
+                <p>+91 98765 43210</p>
+            </div>
+            <div class="contact-item">
+                <div class="icon">✉️</div>
+                <p>shipmatecourier@gmail.com</p>
+            </div>
+            <div class="contact-item">
+                <div class="icon">📍</div>
+                <p>Mangalore, India</p>
+            </div>
+        </div>
+        <div class="contact-buttons">
+            <a href="mailto:shipmatecourier@gmail.com" class="btn btn-secondary">Email Us</a>
+            <a href="https://wa.me/919876543210" class="btn btn-primary">WhatsApp Support</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 ShipMate Courier Services. All rights reserved.</p>
+        <div class="social-links">
+            <a href="#"><i class="fa fa-facebook">📘</i></a>
+            <a href="#"><i class="fa fa-twitter">🐦</i></a>
+            <a href="#"><i class="fa fa-instagram">📷</i></a>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Sticky Navbar
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.background = 'rgba(40, 167, 69, 0.9)';
+            } else {
+                header.style.background = 'linear-gradient(90deg, #28A745 0%, #E8F5E8 100%)';
+            }
+        });
+
+        // Fade-in on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        });
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

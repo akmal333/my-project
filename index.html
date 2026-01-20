@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShipMate - Courier & Shipping Service</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #F8F9FA; /* Slightly adjusted light background */
+            overflow-x: hidden;
+        }
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .btn-primary {
+            background-color: #28A745; /* New primary: Green for reliability */
+            color: white;
+            box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(40, 167, 69, 0.4);
+        }
+        .btn-secondary {
+            background-color: #6F42C1; /* New accent: Purple for innovation */
+            color: white;
+            box-shadow: 0 4px 8px rgba(111, 66, 193, 0.3);
+        }
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(111, 66, 193, 0.4);
+        }
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 1s ease-in-out forwards;
+        }
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        /* Header / Navigation */
+        header {
+            position: sticky;
+            top: 0;
+            background: linear-gradient(90deg, #28A745 0%, #E8F5E8 100%); /* Green gradient */
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: white;
+        }
+        nav {
+            display: flex;
+            gap: 20px;
+        }
+        nav a {
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        nav a:hover {
+            color: #6F42C1; /* Purple hover */
+        }
+        .btn-login {
+            background-color: #6F42C1; /* Purple login button */
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 80px 20px;
+            background: linear-gradient(135deg, #E8F5E8 0%, #F8F9FA 100%); /* Light green gradient */
+            min-height: 70vh;
+        }
+        .hero-text {
+            flex: 1;
+            max-width: 50%;
+        }
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: #28A745; /* Green headline */
+        }
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        .hero-image {
+            flex: 1;
+            text-align: center;
+        }
+        .hero-image img {
+            max-width: 100%;
+            height: auto;
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        /* Features Section */
+        .features {
+            padding: 60px 20px;
+            background-color: white;
+        }
+        .features h2 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 40px;
+            color: #28A745; /* Green heading */
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        .feature-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #28A745; /* Green subheadings */
+        }
+
+        /* How It Works Section */
+        .how-it-works {
+            padding: 60px 20px;
+            background-color: #F8F9FA;
+        }
+        .how-it-works h2 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 40px;
+            color: #28A745; /* Green heading */
+        }
+        .steps {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+        .step {
+            text-align: center;
+            max-width: 200px;
+        }
+        .step-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+        .step h4 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        /* Install PWA Section */
+        .install {
+            padding: 60px 20px;
+            background-color: white;
+            text-align: center;
+        }
+        .install h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #28A745; /* Green heading */
+        }
+        .install p {
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+        .install-btn {
+            background-color: #28A745; /* Green install button */
+            color: white;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 18px;
+            transition: background 0.3s;
+        }
+        .install-btn:hover {
+            background-color: #218838; /* Darker green on hover */
+        }
+
+        /* Footer */
+        footer {
+            background-color: #28A745; /* Green footer */
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .social-links {
+            margin-top: 20px;
+        }
+        .social-links a {
+            margin: 0 10px;
+            font-size: 24px;
+            transition: color 0.3s;
+        }
+        .social-links a:hover {
+            color: #6F42C1; /* Purple hover on social links */
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding: 40px 20px;
+            }
+            .hero-text {
+                max-width: 100%;
+            }
+            .hero h1 {
+                font-size: 32px;
+            }
+            .steps {
+                flex-direction: column;
+                align-items: center;
+            }
+            nav {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header / Navigation -->
+    <header>
+        <div class="logo">🚚 ShipMate</div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="about.html">About Us</a>
+            <a href="book.html">Book Parcel</a>`
+            <a href="track.html">Track Parcel</a>
+            <a href="login.html" class="btn-login">Login</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero fade-in" id="hero">
+        <div class="hero-text">
+            <h1>Deliver Smarter with ShipMate</h1>
+            <p>Book, track, and manage your parcels easily — real-time and offline!</p>
+            <div class="hero-buttons">
+                <a href="book.html" class="btn btn-primary">Book Parcel</a>
+                <a href="track.html" class="btn btn-secondary">Track Parcel</a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <img src="delivery-pic.jpg" alt="Delivery Illustration">
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features fade-in">
+        <h2>Our Services</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">📦</div>
+                <h3>Easy Booking</h3>
+                <p>Enter sender/receiver details and schedule pickup in seconds.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🚀</div>
+                <h3>Live Tracking</h3>
+                <p>Track parcels in real-time with GPS updates.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📅</div>
+                <h3>History Access</h3>
+                <p>Check previous deliveries anytime from your dashboard.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🌐</div>
+                <h3>Offline Mode</h3>
+                <p>Access booking data even without internet.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works fade-in">
+        <h2>How It Works</h2>
+        <div class="steps">
+            <div class="step">
+                <div class="step-icon">1️⃣</div>
+                <h4>Fill Parcel Details</h4>
+                <p>Enter all necessary info for your shipment.</p>
+            </div>
+            <div class="step">
+                <div class="step-icon">➡️</div>
+            </div>
+            <div class="step">
+                <div class="step-icon">2️⃣</div>
+                <h4>Confirm Pickup</h4>
+                <p>Schedule and confirm your pickup time.</p>
+            </div>
+            <div class="step">
+                <div class="step-icon">➡️</div>
+            </div>
+            <div class="step">
+                <div class="step-icon">3️⃣</div>
+                <h4>Track Delivery</h4>
+                <p>Monitor your parcel's journey in real-time.</p>
+            </div>
+            <div class="step">
+                <div class="step-icon">➡️</div>
+            </div>
+            <div class="step">
+                <div class="step-icon">🎉</div>
+                <h4>Receive Parcel</h4>
+                <p>Get your delivery safely at the door.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Install PWA Section -->
+    <section class="install fade-in">
+        <h2>Install ShipMate App</h2>
+        <p>Add to your home screen for quick access — works offline!</p>
+        <button class="install-btn" onclick="alert('PWA Install Prompt: Add to Home Screen!')">Add to Home Screen</button>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 ShipMate Courier Services. All rights reserved.</p>
+        <div class="social-links">
+            <a href="#"><i class="fa fa-facebook">📘</i></a>
+            <a href="#"><i class="fa fa-twitter">🐦</i></a>
+            <a href="#"><i class="fa fa-instagram">📷</i></a>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth Scrolling for "Get Started" (if added to nav)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Sticky Navbar (already handled in CSS, but JS for dynamic behavior)
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.background = 'rgba(40, 167, 69, 0.9)'; /* Green with opacity */
+            } else {
+                header.style.background = 'linear-gradient(90deg, #28A745 0%, #E8F5E8 100%)';
+            }
+        });
+
+        // Fade-in on scroll (enhances animations)
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        });
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
